@@ -236,6 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b1dc8faebfb73499c785141bb4a247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentControlledBlock: {fileID: 2125788837}
+  model: {fileID: 2125788837}
+  gameManagement: {fileID: 1679433014}
 --- !u!4 &829226203
 Transform:
   m_ObjectHideFlags: 0
@@ -384,6 +387,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1679433013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1679433015}
+  - component: {fileID: 1679433014}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1679433014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679433013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a2b970b8ea4cd42b0c51d4c72cdb6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1679433015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679433013}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55, y: 45.49, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1795117249
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,11 +479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 22f6149cfbe52984e89d65046ee66a14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.27
+      value: 2.58
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 22f6149cfbe52984e89d65046ee66a14, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 43.68
+      value: 42.59
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 22f6149cfbe52984e89d65046ee66a14, type: 3}
       propertyPath: m_LocalPosition.z
@@ -513,6 +560,7 @@ MonoBehaviour:
   blockBody: {fileID: 2125788838}
   collider: {fileID: 2125788842}
   blockSize: 0
+  gameManagement: {fileID: 1679433014}
   movementSpeed: 7.36
 --- !u!61 &2125788842
 BoxCollider2D:
