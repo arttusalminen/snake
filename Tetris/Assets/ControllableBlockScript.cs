@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ControllableBlockScript : MonoBehaviour
 {
@@ -8,6 +9,15 @@ public class ControllableBlockScript : MonoBehaviour
     public GameObject model;
     public GameManagement gameManagement;
 
+    public BlockMovementInputs inputs;
+
+    void Awake()
+    {
+        inputs = new BlockMovementInputs();
+        inputs.BlockControls.MoveRight.performed += ctx => MoveBlock(DirectionEnum.Right);
+        inputs.BlockControls.MoveLeft.performed += ctx => MoveBlock(DirectionEnum.Left);
+        inputs.BlockControls.RotateBlock.performed += ctx => RotateBlock();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,4 +42,35 @@ public class ControllableBlockScript : MonoBehaviour
             // take into account shape of said block & align it with lines
         }
     }
+
+    private void MoveBlock(DirectionEnum direction)
+    {
+        // TODO: check if possible to move in the given direction
+
+        Vector2 currentPos = currentControlledBlock.transform.position;
+        Vector2 movement = new Vector2(5, 0);
+
+        if (direction == DirectionEnum.Left)
+            movement.x = -5;
+
+        currentControlledBlock.transform.position = currentPos + movement;
+    }
+
+    private void RotateBlock()
+    {
+        // TODO
+    }
+
+
+    private void OnEnable()
+    {
+        inputs.BlockControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.BlockControls.Disable();
+    }
+
+
 }
