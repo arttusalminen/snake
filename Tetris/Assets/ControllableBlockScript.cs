@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class ControllableBlockScript : MonoBehaviour
 {
-    public GameObject currentControlledBlock;
-    public GameObject model;
+    public BlockEntity currentControlledBlock;
     public GameManagement gameManagement;
+
+    public BlockEntity prefabEntity;
+    public BlockUnit prefabUnit;
 
     public BlockMovementInputs inputs;
 
@@ -22,21 +24,16 @@ public class ControllableBlockScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AssignNewControllableBlock();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Rigidbody2D someBodyPart = (Rigidbody2D)currentControlledBlock.GetComponentInChildren(typeof(Rigidbody2D), false);
-        Collider2D someCollider = (Collider2D)currentControlledBlock.GetComponentInChildren(typeof(Collider2D), false);
-
         // Create new block & move to start position
-        if (gameManagement.GameRunning && someCollider.IsTouchingLayers() && someBodyPart.velocity.magnitude.Equals(0))
+        if (currentControlledBlock.isAsleep())
         {
-            // TODO: create new random block, assign to currentControlledBlock
-
-            currentControlledBlock = Instantiate(model, new Vector2(0, 40), new Quaternion());
+            AssignNewControllableBlock();
 
             // TODO: transform to start location (centre)
             // take into account shape of said block & align it with lines
@@ -48,10 +45,10 @@ public class ControllableBlockScript : MonoBehaviour
         // TODO: check if possible to move in the given direction
 
         Vector2 currentPos = currentControlledBlock.transform.position;
-        Vector2 movement = new Vector2(5, 0);
+        Vector2 movement = new Vector2(2, 0);
 
         if (direction == DirectionEnum.Left)
-            movement.x = -5;
+            movement.x = -2;
 
         currentControlledBlock.transform.position = currentPos + movement;
     }
@@ -59,6 +56,7 @@ public class ControllableBlockScript : MonoBehaviour
     private void RotateBlock()
     {
         // TODO
+        currentControlledBlock.transform.Rotate(0, 0, 90);
     }
 
 
@@ -72,5 +70,19 @@ public class ControllableBlockScript : MonoBehaviour
         inputs.BlockControls.Disable();
     }
 
+    private void AssignNewControllableBlock()
+    {
+        currentControlledBlock = Instantiate(prefabEntity);
+        currentControlledBlock.transform.position = new Vector2(0, 0);
 
+        List<BlockUnit> blocks = new List<BlockUnit>();
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, 0, BlockColor.Blue));
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 2, 0, BlockColor.Blue));
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, -2, 0, BlockColor.Blue));
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, -2, BlockColor.Blue));
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, -4, BlockColor.Blue));
+        currentControlledBlock.SetBlockUnits(blocks);
+
+        currentControlledBlock.transform.position = new Vector2(0, 40);
+    }
 }
