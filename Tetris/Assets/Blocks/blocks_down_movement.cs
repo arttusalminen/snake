@@ -8,6 +8,7 @@ public class blocks_down_movement : MonoBehaviour
     public Rigidbody2D blockBody;
     public Collider2D collider;
     public float blockSize;
+    public GameManagement gameManagement;
 
     // Variables that can be adjusted in Unity editor
     public float movementSpeed;
@@ -28,6 +29,10 @@ public class blocks_down_movement : MonoBehaviour
 
         // Assign velocity accordingly when stationary. Conditional operator '?:', short version of if-else
         if (blockBody.velocity.sqrMagnitude < movementSpeed / 2)
+        {
             blockBody.velocity = hits == 0 ? Vector2.down * movementSpeed : Vector2.zero;
+            gameManagement.GameRunning = true;
+        }
+
     }
 }
