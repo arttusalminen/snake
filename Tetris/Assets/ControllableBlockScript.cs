@@ -30,6 +30,7 @@ public class ControllableBlockScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // FIXME: this is bad
         // Create new block & move to start position
         if (currentControlledBlock.isAsleep())
         {
@@ -55,7 +56,6 @@ public class ControllableBlockScript : MonoBehaviour
 
     private void RotateBlock()
     {
-        // TODO
         currentControlledBlock.transform.Rotate(0, 0, 90);
     }
 
@@ -76,11 +76,11 @@ public class ControllableBlockScript : MonoBehaviour
         currentControlledBlock.transform.position = new Vector2(0, 0);
 
         List<BlockUnit> blocks = new List<BlockUnit>();
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, 2, BlockColor.Blue));
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 2, 2, BlockColor.Blue));
+        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, -2, 2, BlockColor.Blue));
         blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, 0, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 2, 0, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, -2, 0, BlockColor.Blue));
         blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, -2, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, -4, BlockColor.Blue));
         currentControlledBlock.SetBlockUnits(blocks);
 
         currentControlledBlock.transform.position = new Vector2(0, 40);
