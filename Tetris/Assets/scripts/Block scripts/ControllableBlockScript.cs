@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,13 +77,24 @@ public class ControllableBlockScript : MonoBehaviour
         currentControlledBlock.transform.position = new Vector2(0, 0);
 
         List<BlockUnit> blocks = new List<BlockUnit>();
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, 2, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 2, 2, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, -2, 2, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, 0, BlockColor.Blue));
-        blocks.Add(Instantiate(prefabUnit).Initialize(currentControlledBlock, 0, -2, BlockColor.Blue));
-        currentControlledBlock.SetBlockUnits(blocks);
 
+        Vector2Int[][] allBlockShapes = new Vector2Int[][] {
+        BlockData.I, BlockData.J, BlockData.L,
+        BlockData.O, BlockData.S, BlockData.T, BlockData.Z
+        };
+
+        int randomIndex = UnityEngine.Random.Range(0, allBlockShapes.Length);
+        Vector2Int[] blockShape = allBlockShapes[randomIndex];
+
+        BlockColor color = (BlockColor)randomIndex;
+
+        for (int i = 0; i < blockShape.Length; i++)
+        {
+            Vector2Int position = blockShape[i];
+            BlockUnit newBlockUnit = Instantiate(prefabUnit).Initialize(currentControlledBlock, position.x, position.y, color);
+            blocks.Add(newBlockUnit);
+        }
+        currentControlledBlock.SetBlockUnits(blocks);
         currentControlledBlock.transform.position = new Vector2(0, 40);
     }
 }

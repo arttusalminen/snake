@@ -4,16 +4,15 @@ using UnityEngine;
 
 public enum BlockColor 
 {
-    Blue,
     Cyan,
-    Ghost,
-    Green,
-    Red,
+    Blue,
     Orange,
-    Purple,
     Yellow,
+    Green,
+    Purple,
+    Red,
 }
-
+ 
 public static class BlockSprites
 {
     public static Sprite getSpriteForColor(BlockColor color)
